@@ -15,7 +15,9 @@
  */
 package net.alqs.iclib.salat;
 
+import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.TimeZone;
 
 import net.alqs.iclib.Formula;
 
@@ -91,6 +93,12 @@ public class TimeCalculator {
 		this.julianDay = Formula.gregorianToJd(date.get(GregorianCalendar.YEAR),
 				date.get(GregorianCalendar.MONTH) + 1, date.get(GregorianCalendar.DAY_OF_MONTH));
 		return this;
+	}
+	
+	public TimeCalculator date(Date date, TimeZone zone) {
+		GregorianCalendar g = new GregorianCalendar(zone);
+		g.setTime(date);
+		return date(g);
 	}
 
 	/**
