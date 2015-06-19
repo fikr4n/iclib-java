@@ -15,8 +15,12 @@
  */
 package net.alqs.iclib.salat;
 
-public class Hms {
+import java.io.Serializable;
 
+public class Hms implements Serializable, Comparable<Hms> {
+
+	private static final long serialVersionUID = 1L;
+	
 	public final int hour, minute, second;
 	
 	public Hms(double hours) {
@@ -34,5 +38,28 @@ public class Hms {
 	@Override
 	public String toString() {
 		return String.format("%02d:%02d:%02d", hour, minute, second);
+	}
+
+	@Override
+	public int compareTo(Hms o) {
+		int c = Integer.compare(hour, o.hour);
+		if (c != 0) return c;
+		c = Integer.compare(minute, o.minute);
+		if (c != 0) return c;
+		return Integer.compare(second, o.second);
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof Hms)) return false;
+		return compareTo((Hms) obj) == 0;
+	}
+	
+	@Override
+	public int hashCode() {
+		int h = hour;
+		h = 31 * h + minute;
+		h = 31 * h + second;
+		return h;
 	}
 }

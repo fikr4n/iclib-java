@@ -38,8 +38,8 @@ public class TimeCalculator {
 	private double latitude;
 	private double longitude;
 	private double height;
-	private double timezone;
-	private double julianDay;
+	private Double timezone;
+	private Double julianDay;
 
 	/**
 	 * Like {@code method(angle, false, new TimeAdjustment().setZuhr(2.0/60))}.
@@ -119,6 +119,9 @@ public class TimeCalculator {
 	 * and call this method, update the date to tomorrow and call this method.
 	 */
 	public Times calculate() {
+		if (angle == null || julianDay == null || timezone == null)
+			throw new IllegalStateException("Some calculation parameter is not initialized yet");
+		
 		// julian day of local midday (minus timezone, plus 12 hours)
 		double jd = Formula.adjustJdHour(this.julianDay, -this.timezone + 12);
 		double ds = Formula.declSun(jd);

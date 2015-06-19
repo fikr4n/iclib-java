@@ -15,8 +15,12 @@
  */
 package net.alqs.iclib.hijri;
 
-public class HijriDate {
+import java.io.Serializable;
 
+public class HijriDate implements Serializable, Comparable<HijriDate> {
+
+	private static final long serialVersionUID = 1L;
+	
 	public final int year;
 	/** Month [0..11], starting from 0, follows Java convention. */
 	public final int month;
@@ -35,5 +39,28 @@ public class HijriDate {
 	@Override
 	public String toString() {
 		return String.format("%04d-%02d-%02d", year, month, day);
+	}
+
+	@Override
+	public int compareTo(HijriDate o) {
+		int c = Integer.compare(year, o.year);
+		if (c != 0) return c;
+		c = Integer.compare(month, o.month);
+		if (c != 0) return c;
+		return Integer.compare(day, o.day);
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof HijriDate)) return false;
+		return compareTo((HijriDate) obj) == 0;
+	}
+	
+	@Override
+	public int hashCode() {
+		int h = year;
+		h = 31 * h + month;
+		h = 31 * h + day;
+		return h;
 	}
 }

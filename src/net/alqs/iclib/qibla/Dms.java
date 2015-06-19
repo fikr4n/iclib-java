@@ -15,8 +15,18 @@
  */
 package net.alqs.iclib.qibla;
 
-public class Dms {
+import java.io.Serializable;
 
+/**
+ * Representation of angle in degree-minute-second.
+ * 
+ * @author fikr4n
+ *
+ */
+public class Dms implements Serializable, Comparable<Dms> {
+
+	private static final long serialVersionUID = 1L;
+	
 	public final int degree, minute;
 	public final double second;
 
@@ -40,5 +50,30 @@ public class Dms {
 	@Override
 	public String toString() {
 		return toString(0);
+	}
+
+	@Override
+	public int compareTo(Dms o) {
+		int c = Integer.compare(degree, o.degree);
+		if (c != 0) return c;
+		c = Integer.compare(minute, o.minute);
+		if (c != 0) return c;
+		return Double.compare(second, o.second);
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof Dms)) return false;
+		return compareTo((Dms) obj) == 0;
+	}
+	
+	@Override
+	public int hashCode() {
+		int h = degree;
+		h = 31 * h + minute;
+		long sl = Double.doubleToRawLongBits(second);
+		h = 31 * h + (int) sl;
+		h = 31 * h + (int) (sl >> 32);
+		return h;
 	}
 }
