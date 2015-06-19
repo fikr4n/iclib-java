@@ -34,7 +34,7 @@ public class TimeCalculator {
 	
 	private AngleRule angle;
 	private int asrRatio;
-	private TimeAdjustment adjustments;
+	private BaseTimeAdjustment adjustments;
 	private double latitude;
 	private double longitude;
 	private double height;
@@ -42,13 +42,13 @@ public class TimeCalculator {
 	private Double julianDay;
 
 	/**
-	 * Like {@code method(angle, false, new TimeAdjustment().setZuhr(2.0/60))}.
+	 * Like calling {@code method(angle, false, TimeAdjustment.TWO_MINUTES_ZUHR)}.
 	 * 
 	 * @param angle
 	 * @return
 	 */
 	public TimeCalculator method(AngleRule angle) {
-		return method(angle, false, new TimeAdjustment().zuhr(2.0/60));
+		return method(angle, false, TimeAdjustment.TWO_MINUTES_ZUHR);
 	}
 	
 	/**
@@ -59,7 +59,7 @@ public class TimeCalculator {
 	 * @param adjustments result adjustment
 	 * @return self for chaining
 	 */
-	public TimeCalculator method(AngleRule angle, boolean hanafiAsrRatio, TimeAdjustment adjustments) {
+	public TimeCalculator method(AngleRule angle, boolean hanafiAsrRatio, BaseTimeAdjustment adjustments) {
 		this.angle = angle;
 		this.asrRatio = hanafiAsrRatio ? Formula.ASR_RATIO_HANAFI : Formula.ASR_RATIO_MAJORITY;
 		this.adjustments = adjustments;
@@ -128,12 +128,12 @@ public class TimeCalculator {
 		double transit = Formula.zuhr(this.longitude, this.timezone, Formula.eqTime(jd));
 		double lat = this.latitude;
 		return new Times((long) (jd - JAVA_DATE_EPOCH_JD) * 24 * 60 * 60 * 1000,
-			Formula.fajr   (transit, lat, ds, this.angle.fajr) + adjustments.getFajr(),
-			Formula.sunrise(transit, lat, ds, this.height)     + adjustments.getSunrise(),
-			transit                                            + adjustments.getZuhr(),
-			Formula.asr    (transit, lat, ds, this.asrRatio)   + adjustments.getAsr(),
-			Formula.maghrib(transit, lat, ds, this.height)     + adjustments.getMaghrib(),
-			Formula.isha   (transit, lat, ds, this.angle.isha) + adjustments.getIsha());
+			Formula.fajr   (transit, lat, ds, this.angle.fajr) + adjustments.getFajr() / 60.0,
+			Formula.sunrise(transit, lat, ds, this.height)     + adjustments.getSunrise() / 60.0,
+			transit                                            + adjustments.getZuhr() / 60.0,
+			Formula.asr    (transit, lat, ds, this.asrRatio)   + adjustments.getAsr() / 60.0,
+			Formula.maghrib(transit, lat, ds, this.height)     + adjustments.getMaghrib() / 60.0,
+			Formula.isha   (transit, lat, ds, this.angle.isha) + adjustments.getIsha() / 60.0);
 	}
 
 }

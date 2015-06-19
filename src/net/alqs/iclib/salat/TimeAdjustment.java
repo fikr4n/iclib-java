@@ -15,17 +15,63 @@
  */
 package net.alqs.iclib.salat;
 
-public class TimeAdjustment {
-
-	private double fajr, sunrise, zuhr, asr, maghrib, isha;
+public class TimeAdjustment extends BaseTimeAdjustment {
 
 	/**
 	 * Create new instance with all adjustments set to 0.0.
 	 */
 	public TimeAdjustment() {
+		super(0, 0, 0, 0, 0, 0);
 	}
-	
+
+	/**
+	 * Create new instance, all arguments are in minutes.
+	 */
 	public TimeAdjustment(double fajr, double sunrise, double zuhr, double asr,
+			double maghrib, double isha) {
+		super(fajr, sunrise, zuhr, asr, maghrib, isha);
+	}
+
+	public TimeAdjustment fajr(double fajr) {
+		this.fajr = fajr;
+		return this;
+	}
+
+	public TimeAdjustment sunrise(double sunrise) {
+		this.sunrise = sunrise;
+		return this;
+	}
+
+	public TimeAdjustment zuhr(double zuhr) {
+		this.zuhr = zuhr;
+		return this;
+	}
+
+	public TimeAdjustment asr(double asr) {
+		this.asr = asr;
+		return this;
+	}
+
+	public TimeAdjustment maghrib(double maghrib) {
+		this.maghrib = maghrib;
+		return this;
+	}
+
+	public TimeAdjustment isha(double isha) {
+		this.isha = isha;
+		return this;
+	}
+}
+
+class BaseTimeAdjustment {
+	
+	public static final BaseTimeAdjustment ZEROS = new BaseTimeAdjustment(0, 0, 0, 0, 0, 0);
+	public static final BaseTimeAdjustment TWO_MINUTES = new BaseTimeAdjustment(2, 2, 2, 2, 2, 2);
+	public static final BaseTimeAdjustment TWO_MINUTES_ZUHR = new BaseTimeAdjustment(0, 0, 2, 0, 0, 0);
+
+	protected double fajr, sunrise, zuhr, asr, maghrib, isha;
+	
+	public BaseTimeAdjustment(double fajr, double sunrise, double zuhr, double asr,
 			double maghrib, double isha) {
 		this.fajr = fajr;
 		this.sunrise = sunrise;
@@ -57,35 +103,5 @@ public class TimeAdjustment {
 
 	public double getIsha() {
 		return isha;
-	}
-
-	public TimeAdjustment fajr(double fajr) {
-		this.fajr = fajr;
-		return this;
-	}
-
-	public TimeAdjustment sunrise(double sunrise) {
-		this.sunrise = sunrise;
-		return this;
-	}
-
-	public TimeAdjustment zuhr(double zuhr) {
-		this.zuhr = zuhr;
-		return this;
-	}
-
-	public TimeAdjustment asr(double asr) {
-		this.asr = asr;
-		return this;
-	}
-
-	public TimeAdjustment maghrib(double maghrib) {
-		this.maghrib = maghrib;
-		return this;
-	}
-
-	public TimeAdjustment isha(double isha) {
-		this.isha = isha;
-		return this;
 	}
 }

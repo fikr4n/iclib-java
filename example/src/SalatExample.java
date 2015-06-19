@@ -52,7 +52,7 @@ public class SalatExample extends Example {
 	public void egypt_iter_noadjust() {
 		Times t = new TimeCalculator().date(date)
 			.location(-6.38043079, 106.85337984, 0, 7)
-			.method(AngleRule.EGYPT, false, new TimeAdjustment())
+			.method(AngleRule.EGYPT, false, TimeAdjustment.ZEROS)
 			.calculate();
 		for (Date i : t)
 			print(i);
@@ -69,7 +69,7 @@ public class SalatExample extends Example {
 	public void mwl_noadjust() {
 		TimeCalculator c = new TimeCalculator().date(date)
 			.location(-6.38043079, 106.85337984, 0, 7)
-			.method(AngleRule.MWL, false, new TimeAdjustment());
+			.method(AngleRule.MWL, false, TimeAdjustment.ZEROS);
 		for (Date i : c.calculate())
 			print(i);
 	}
@@ -77,7 +77,7 @@ public class SalatExample extends Example {
 	public void mwl_hanafi_noadjust() {
 		TimeCalculator c = new TimeCalculator().date(date) 
 			.location(-6.38043079, 106.85337984, 0, 7) 
-			.method(AngleRule.MWL, true, new TimeAdjustment());
+			.method(AngleRule.MWL, true, TimeAdjustment.ZEROS);
 		for (Date i : c.calculate())
 			print(i);
 	}
@@ -85,7 +85,7 @@ public class SalatExample extends Example {
 	public void mwl_noadjust_100m() {
 		TimeCalculator c = new TimeCalculator().date(date) 
 			.location(-6.38043079, 106.85337984, 100, 7) 
-			.method(AngleRule.MWL, false, new TimeAdjustment());
+			.method(AngleRule.MWL, false, TimeAdjustment.ZEROS);
 		for (Date i : c.calculate())
 			print(i);
 	}
