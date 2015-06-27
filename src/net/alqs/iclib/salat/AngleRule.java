@@ -17,10 +17,15 @@ package net.alqs.iclib.salat;
 
 public class AngleRule {
 	
+	/** Muslim World League standard. */
 	public static final AngleRule MWL = new AngleRule(18, 17);
+	/** Islamic Society of North America standard. */
 	public static final AngleRule ISNA = new AngleRule(15, 15);
+	/** Egyptian General Authority of Survey standard. */
 	public static final AngleRule EGYPT = new AngleRule(19.5, 17.5);
+	/** University of Islamic Sciences (Karachi) standard. */
 	public static final AngleRule KARACHI = new AngleRule(18, 18);
+	/** Muhammadiyah organization (Indonesia) standard. */
 	public static final AngleRule MUHAMMADIYAH = new AngleRule(20, 18);
 
 	public final double fajr, isha;

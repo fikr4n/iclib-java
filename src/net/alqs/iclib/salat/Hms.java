@@ -17,6 +17,12 @@ package net.alqs.iclib.salat;
 
 import java.io.Serializable;
 
+/**
+ * Representation of time in hour-minute-second.
+ * 
+ * @author fikr4n
+ *
+ */
 public class Hms implements Serializable, Comparable<Hms> {
 
 	private static final long serialVersionUID = 1L;

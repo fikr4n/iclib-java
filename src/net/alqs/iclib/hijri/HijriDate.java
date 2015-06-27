@@ -17,6 +17,12 @@ package net.alqs.iclib.hijri;
 
 import java.io.Serializable;
 
+/**
+ * Represent a simple Hijri Calendar date.
+ * 
+ * @author fikr4n
+ *
+ */
 public class HijriDate implements Serializable, Comparable<HijriDate> {
 
 	private static final long serialVersionUID = 1L;
@@ -29,6 +35,14 @@ public class HijriDate implements Serializable, Comparable<HijriDate> {
 	/** Number of days in the month. */
 	public final int monthLength;
 
+	/**
+	 * Create new instance, there is no validation of the values.
+	 * 
+	 * @param year
+	 * @param month
+	 * @param day
+	 * @param monthLength
+	 */
 	public HijriDate(int year, int month, int day, int monthLength) {
 		this.year = year;
 		this.month = month;

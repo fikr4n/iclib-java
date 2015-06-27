@@ -88,6 +88,9 @@ public class Times implements Iterable<Date> {
 		return getTime(ISHA);
 	}
 	
+	/**
+	 * Whether second is used, if not it will be zero and minute is rounded to the top (ceil).
+	 */
 	public boolean isUseSecond() {
 		return useSecond;
 	}

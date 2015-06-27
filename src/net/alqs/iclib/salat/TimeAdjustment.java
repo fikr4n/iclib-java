@@ -15,6 +15,20 @@
  */
 package net.alqs.iclib.salat;
 
+/**
+ * Time adjustment of prayer times.
+ * 
+ * <p>Adjustment of calculation result has some advantages, e.g.:
+ * <ul>
+ * <li>To wait for the Sun to slightly down to the west since prayer when the Sun is exactly in the
+ * center/topmost position is prohibited.
+ * <li>To cover western area of a city.
+ * <li>To cover/avoid calculation error.
+ * </ul>
+ * 
+ * @author fikr4n
+ *
+ */
 public class TimeAdjustment extends BaseTimeAdjustment {
 
 	/**
@@ -65,8 +79,11 @@ public class TimeAdjustment extends BaseTimeAdjustment {
 
 class BaseTimeAdjustment {
 	
+	/** Each time is zero. */
 	public static final BaseTimeAdjustment ZEROS = new BaseTimeAdjustment(0, 0, 0, 0, 0, 0);
+	/** Each time is 2 minutes. */
 	public static final BaseTimeAdjustment TWO_MINUTES = new BaseTimeAdjustment(2, 2, 2, 2, 2, 2);
+	/** Each time is zero, except Zuhr, it is two minutes. */
 	public static final BaseTimeAdjustment TWO_MINUTES_ZUHR = new BaseTimeAdjustment(0, 0, 2, 0, 0, 0);
 
 	protected double fajr, sunrise, zuhr, asr, maghrib, isha;

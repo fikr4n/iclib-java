@@ -89,15 +89,20 @@ public class Formula {
 	}
 
 	/**
-	 * Return hour angle in degrees.
+	 * Return hour angle in degrees, return positive or negative infinity if calculation
+	 * cannot be performed.
+	 * 
+	 * <p>Negative and positive infinity has special meaning.
 	 */
 	public static double hourAngle(double lat, double alt, double ds) {
 		double cosHa = ((sinDeg(alt) - sinDeg(lat) * sinDeg(ds))
 			/          (               cosDeg(lat) * cosDeg(ds)));
-		if (-1 <= cosHa && cosHa <= 1)
-			return acosDeg(cosHa);
+		if (cosHa < -1)
+			return Double.NEGATIVE_INFINITY;
+		else if (cosHa > 1)
+			return Double.POSITIVE_INFINITY;
 		else
-			return Double.NaN;
+			return acosDeg(cosHa);
 	}
 
 	/**

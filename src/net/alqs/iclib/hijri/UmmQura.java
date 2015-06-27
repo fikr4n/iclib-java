@@ -19,6 +19,12 @@ import java.util.GregorianCalendar;
 
 import net.alqs.iclib.Formula;
 
+/**
+ * Umm al-Qura Hijri Calendar converter.
+ * 
+ * @author fikr4n
+ *
+ */
 public class UmmQura {
 	
 	/**
