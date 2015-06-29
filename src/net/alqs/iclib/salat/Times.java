@@ -36,6 +36,10 @@ public class Times implements Iterable<Date> {
 	Times(long millis, double... times) {
 		this.times = times;
 		this.millis = millis;
+		if (times[SUNRISE] == Double.NEGATIVE_INFINITY || times[MAGHRIB] == Double.POSITIVE_INFINITY) {
+			times[ZUHR] = Double.POSITIVE_INFINITY;
+			times[ASR] = Double.POSITIVE_INFINITY;
+		}
 	}
 
 	/**
@@ -47,11 +51,14 @@ public class Times implements Iterable<Date> {
 	 * @return
 	 */
 	public Date getTime(int timeName) {
+		double t = times[timeName];
+		if (t == Double.POSITIVE_INFINITY || t == Double.NEGATIVE_INFINITY)
+			return null;
 		// negative hours will raise exception
 		if (isUseSecond())
-			return new Date(this.millis + (long) Math.ceil(times[timeName] * 60 * 60) * 1000);
+			return new Date(this.millis + (long) Math.ceil(t * 60 * 60) * 1000);
 		else
-			return new Date(this.millis + (long) Math.ceil(times[timeName] * 60) * 60 * 1000);
+			return new Date(this.millis + (long) Math.ceil(t * 60) * 60 * 1000);
 	}
 
 	/**
@@ -63,10 +70,13 @@ public class Times implements Iterable<Date> {
 	 * @return
 	 */
 	public Hms getHms(int timeName) {
+		double t = times[timeName];
+		if (t == Double.POSITIVE_INFINITY || t == Double.NEGATIVE_INFINITY)
+			return null;
 		if (isUseSecond())
-			return new Hms(this.times[timeName]);
+			return new Hms(t);
 		else
-			return new Hms(Math.ceil(this.times[timeName] * 60) / 60);
+			return new Hms(Math.ceil(t * 60) / 60);
 	}
 	
 	public Date getFajr() {
